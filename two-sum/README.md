@@ -36,3 +36,23 @@
 
 <p>&nbsp;</p>
 <strong>Follow-up:&nbsp;</strong>Can you come up with an algorithm that is less than&nbsp;<code>O(n<sup>2</sup>)&nbsp;</code>time complexity?</div>
+
+
+--------------------------------------------
+
+
+const twoSum = (nums, target) => {
+  const map = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    const another = target - nums[i];
+
+    if (another in map) {
+      return [map[another], i];
+    }
+
+    map[nums[i]] = i;
+  }
+
+  return null;
+};
