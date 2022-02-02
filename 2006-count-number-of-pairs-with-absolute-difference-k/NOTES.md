@@ -1,5 +1,6 @@
 - 2중 for문 대신 hash map으로 
 
+/*
 const countKDifference = function(nums, k) {
     let temp = {}
 	
@@ -22,3 +23,4 @@ const countKDifference = function(nums, k) {
     }
     return count
 };
+*/
