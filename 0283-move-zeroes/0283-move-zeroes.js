@@ -14,15 +14,26 @@ var moveZeroes = function(nums) {
     //   }
     // }
     
-    /* 투 포인터 */
+    /* 투 포인터 92ms */
     
-    let j = 0;
-    for(let i = 0; i < nums.length; i++){
-      if(nums[i]!==0){
-        [nums[i],nums[j]] = [nums[j], nums[i]]
-        j++
-      }
-    }
+//     let j = 0;
+//     for(let i = 0; i < nums.length; i++){
+//       if(nums[i]!==0){
+//         [nums[i],nums[j]] = [nums[j], nums[i]]
+//         j++
+//       }
+//     }
     
+     let lt = 0;
+  
+ for(let i = 0; i < nums.length; i++){
+   if(nums[i]){
+     nums[lt++] = nums[i]
+   }
+ }
+for(let i = lt; i <nums.length; i++){
+  nums[i]= 0
+}
   return nums
+
 };
