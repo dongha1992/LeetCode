@@ -24,16 +24,20 @@ var moveZeroes = function(nums) {
 //       }
 //     }
     
-     let lt = 0;
-  
+    
+    /* for loop 두 개 사용 120ms */
+    
+ let lt = 0; 
  for(let i = 0; i < nums.length; i++){
    if(nums[i]){
      nums[lt++] = nums[i]
-   }
- }
-for(let i = lt; i <nums.length; i++){
-  nums[i]= 0
-}
+    }
+  }
+    
+  for(let i = lt; i < nums.length; i++){
+    nums[i]= 0
+  }
+    
   return nums
 
 };
