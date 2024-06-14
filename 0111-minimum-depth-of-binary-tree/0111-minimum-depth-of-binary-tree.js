@@ -13,28 +13,17 @@
 var minDepth = function(root) {
     let min = Infinity
     const dfs = (node, l) => {
-        if(!node) return 0
-        if(!node.left && !node.right){
-         min = Math.min(min, l)   
+        if(!node) {
+            min = 0
+            return
         }
-        const left = dfs(node.left, l++)
-        const right = dfs(node.right, l++)
-        // return min
+        if(!node.left && !node.right){
+          min = Math.min(min, l)   
+        }
+         if(node.left) dfs(node.left, l+1)
+         if(node.right) dfs(node.right, l+1)
     }
     dfs(root, 1)
     return min
 };
 
-var minDepth = function(root) {
-    if(!root) return 0;
-    var result;
-    function minHeight(root, depth){
-        if(!root.left && !root.right){
-            result = Math.min(result || depth, depth)
-        }
-        if(root.left) minHeight(root.left, depth + 1);
-        if(root.right) minHeight(root.right, depth + 1);
-    }
-    minHeight(root, 1);
-    return result;
-};
