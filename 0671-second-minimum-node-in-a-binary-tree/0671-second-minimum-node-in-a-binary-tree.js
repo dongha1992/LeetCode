@@ -11,15 +11,18 @@
  * @return {number}
  */
 var findSecondMinimumValue = function(root) {
-    const minimumNumbers = [];
-    const arraySet = new Set();
+    const min1 = root.val;
+    let min2 = Infinity
     
     const dfs = (node) => {
         if(!node) return 
+        if(node.val > min1 && node.val < min2){
+            min2 = node.val
+        }
         dfs(node.left)
-        arraySet.add(node.val)
         dfs(node.right)
     }
     dfs(root)
-    return [...arraySet].sort()[1] ?? -1
+    return min2 === Infinity ? -1 : min2;
+
 };
