@@ -11,11 +11,9 @@ class Solution {
             myHeap.insert(score[i], i);
         }
         
-        // Map<Integer, Integer> rankMap = getRankMap(myHeap, score.length);
         
         for(int i = 0; i < score.length; i++){
             Node node = myHeap.delete();
-            // int rank = node;
             
             if(i < 3){
               answer[node.index] = Medal.getMedalByIndex(i).getMedal();
@@ -27,17 +25,6 @@ class Solution {
         return answer;
     }
 
-    public static Map<Integer, Integer> getRankMap(MaxHeap myHeap, int n){
-        Map<Integer, Integer> rankMap = new HashMap<>();
-        
-        for(int i = 0; i < n; i++){
-            Node node = myHeap.delete();
-            rankMap.put(node.value, i);
-        }
-        
-        return rankMap;
-    }
-    
         
     public enum Medal {
         GOLD("Gold Medal"), 
