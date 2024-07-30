@@ -4,32 +4,39 @@ import java.util.List;
 
 class Solution {    
     public String[] findRelativeRanks(int[] score) {
-        MaxHeap myHeap1 = new MaxHeap();
-        MaxHeap myHeap2 = new MaxHeap();
-        // List<Node> rankedList = new ArrayList<>();
+        MaxHeap myHeap = new MaxHeap();
         String[] answer = new String[score.length];
         
         for(int i = 0; i < score.length; i++){
-            myHeap1.insert(score[i], i, -1);
+            myHeap.insert(score[i], i);
         }
         
-        for(int i = 0; i < score.length; i++){
-            Node node = myHeap1.delete();
-            myHeap2.insert(node.value, node.index, i);
-        }
+        Map<Integer, Integer> rankMap = getRankMap(myHeap, score.length);
         
         for(int i = 0; i < score.length; i++){
-            Node node = myHeap2.delete();
+            Integer rank = rankMap.get(score[i]);
             
-            if(i < 3){
-              answer[node.index] = Medal.getMedalByIndex(i).getMedal();
+            if(rank < 3){
+              answer[i] = Medal.getMedalByIndex(rank).getMedal();
             } else {
-              answer[node.index] = String.valueOf(node.rank + 1);
+              answer[i] = String.valueOf(rank + 1);
             }
         }
         
         return answer;
     }
+
+    public static Map<Integer, Integer> getRankMap(MaxHeap myHeap, int n){
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        
+        for(int i = 0; i < n; i++){
+            Node node = myHeap.delete();
+            rankMap.put(node.value, i);
+        }
+        
+        return rankMap;
+    }
+    
         
     public enum Medal {
         GOLD("Gold Medal"), 
@@ -65,12 +72,10 @@ class Solution {
 class Node {
     int value;
     int index;
-    int rank;
-    
-    Node(int value, int index, int rank){
+
+    Node(int value, int index){
         this.value = value;
         this.index = index;
-        this.rank = rank;
     }
 }
 
@@ -101,9 +106,12 @@ class MaxHeap {
         return getParentIndex(index) >= 0;
     }
     
+    public int size(){
+        return heap.size();
+    }
     
-    public void insert(int value, int index, int rank){
-        Node node = new Node(value, index, rank);
+    public void insert(int value, int index){
+        Node node = new Node(value, index);
         heap.add(node);
         heapifyUp();
     }
@@ -172,7 +180,7 @@ class MaxHeap {
     
      public void printHeap() {
         for (Node node : heap) {
-            System.out.println("Value: " + node.value + ", Index: " + node.index + ", Rank: " + node.rank);
+            System.out.println("Value: " + node.value + ", Index: " + node.index);
         }
     }
 }
