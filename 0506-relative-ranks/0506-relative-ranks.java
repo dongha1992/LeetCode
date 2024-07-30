@@ -4,52 +4,33 @@ import java.util.List;
 
 class Solution {    
     public String[] findRelativeRanks(int[] score) {
+        int maxRank = 3;
         
-        int[] copiedScore = copy(score);
+        int[] copiedScore = Arrays.copyOf(score, score.length);  
         
         Arrays.sort(copiedScore);
         
-        int[] reversed = reverse(copiedScore);
-        int[] medalArray = take(reversed, 3);
+        int[] reverseSorted = reverse(copiedScore);
         
-        Map<Integer, Integer> rankMap = new HashMap<>();
-        
-        for(int i = 0; i < reversed.length; i++){
-            rankMap.put(reversed[i], i);
-        }
+        Map<Integer, Integer> rankMap = getRankMap(reverseSorted);
         
         String[] answer = new String[score.length];
-        System.out.println(Arrays.toString(score));
         
         for(int i = 0; i < score.length; i++){
             Integer rank = rankMap.get(score[i]);
             
-            if(rank < 3){
-               Medal medal = Medal.getMedalByIndex(rank);
-               answer[i] = medal.getMedal();
+            if(rank < maxRank){
+               answer[i] =  Medal.getMedalByIndex(rank).getMedal();
             } else {
                answer[i] = String.valueOf(rank + 1);
             }
         }
         
         
-        System.out.println(Arrays.toString(medalArray));
-        
         return answer;
     }
     
-    public static int[] copy(int[] array){
-        return Arrays.copyOf(array, array.length);  
-    }
 
-    public static int[] take(int[] array, int n){
-        if(n > array.length){
-            return Arrays.copyOf(array, array.length);
-        }
-        
-        return Arrays.copyOf(array, n);
-    }
-    
     public static int[] reverse(int[] array){
         int length = array.length;
         int[] reversedArray = new int[length];
@@ -59,6 +40,15 @@ class Solution {
         }
         
         return reversedArray;
+    }
+    
+    public static Map<Integer, Integer> getRankMap(int[] reverseSorted){
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        
+        for(int i = 0; i < reverseSorted.length; i++){
+            rankMap.put(reverseSorted[i], i);
+        }
+        return rankMap;
     }
     
         
