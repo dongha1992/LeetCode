@@ -11,15 +11,16 @@ class Solution {
             myHeap.insert(score[i], i);
         }
         
-        Map<Integer, Integer> rankMap = getRankMap(myHeap, score.length);
+        // Map<Integer, Integer> rankMap = getRankMap(myHeap, score.length);
         
         for(int i = 0; i < score.length; i++){
-            Integer rank = rankMap.get(score[i]);
+            Node node = myHeap.delete();
+            // int rank = node;
             
-            if(rank < 3){
-              answer[i] = Medal.getMedalByIndex(rank).getMedal();
+            if(i < 3){
+              answer[node.index] = Medal.getMedalByIndex(i).getMedal();
             } else {
-              answer[i] = String.valueOf(rank + 1);
+              answer[node.index] = String.valueOf(i + 1);
             }
         }
         
