@@ -15,13 +15,10 @@ class KthLargest {
         }      
     }
     
-    
     public int add(int val) {   
         this.minHeap.offer(val);
-        if(this.minHeap.size() > this.k){
-            this.minHeap.poll();
-        }
-        
+        while(this.minHeap.size() > this.k) this.minHeap.poll();
+
         return this.minHeap.peek();
     }
 }
