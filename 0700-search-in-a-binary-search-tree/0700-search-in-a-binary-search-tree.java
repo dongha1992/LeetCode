@@ -13,20 +13,12 @@
  *     }
  * }
  */
-class Solution {
-    private int val;
-    
+class Solution {    
     public TreeNode searchBST(TreeNode root, int val) {
-        this.val = val;
-        return this.dfs(root);
-    }
-    
-    public TreeNode dfs(TreeNode node) {
-        if (node == null) return null;
+       if (root == null || root.val == val) return root;
         
-        if (node.val == this.val) return node;
-        
-        if (node.val < this.val) return this.dfs(node.right); 
-        else return this.dfs(node.left);
+        if (val < root.val) return searchBST(root.left, val);
+        else return searchBST(root.right, val);
+
     }
 }
