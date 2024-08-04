@@ -30,8 +30,8 @@ class Solution {
             TreeNode right = queue.poll();
             
             if (left == null && right == null) continue;
-            if (left == null || right == null) return false;
-            if (left.val != right.val) return false;
+            if (left == null || right == null || left.val != right.val) return false;
+            // if (left.val != right.val) return false;
             
             queue.add(left.left);
             queue.add(right.right);
