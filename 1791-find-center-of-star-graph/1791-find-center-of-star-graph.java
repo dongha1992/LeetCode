@@ -7,7 +7,7 @@ class Solution {
         List<Integer>[] graph = new ArrayList[n+1];
         
         for(int i = 1; i <= n; i++){
-            graph[i]  = new ArrayList<>();
+            graph[i] = new ArrayList<>();
         }
         
         for(int[] edge: edges){
