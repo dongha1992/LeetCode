@@ -1,21 +1,25 @@
 class Solution {
     public int arrangeCoins(int n) {
-//         int low = 1;
-//         int high = n;    
+        long low = 1;
+        long high = n;    
         
-//         while(low <= high){
-//             int mid = ((low + high) / 2);
+        while(low <= high) {
+            long mid = ((low + high) / 2);
+            long sum = mid * (mid+1) / 2;
             
-            
-//         }
-        int c = 0;
-        int row = 0;
-        
-        while(c < n){
-            c++;
-            n -= c;
-            row++;
+            if(sum == n) {
+                return (int) mid;
+            } else if(sum < n) {
+              low =  mid +1;        
+            } else {
+              high =  mid -1;
+            }
         }
-        return row;
+        
+        return (int) high;
     }
 }
+
+
+
+
