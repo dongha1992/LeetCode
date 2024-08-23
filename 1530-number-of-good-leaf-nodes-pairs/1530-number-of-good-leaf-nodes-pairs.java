@@ -16,24 +16,26 @@
 
 class Solution {
     private int distance;
+    private Map<TreeNode, List<TreeNode>> graph;
+    private Set<TreeNode> leaves;
     
     public int countPairs(TreeNode root, int distance) {
-        Map<TreeNode, List<TreeNode>> graph = new HashMap();
-        Set<TreeNode> leaves = new HashSet();
+
         this.distance = distance;
-        
+        this.leaves = new HashSet();
+        this.graph =  new HashMap();
         // 각 노드 간 거리를 계산하기 위해 주어진 root를 통해 graph를 양방향 인접리스트로 구성한다
-        getGraph(root, null, graph, leaves);
+        getGraph(root, null);
         
         int pairs = 0;
         for(TreeNode leaf : leaves){
-            pairs += bfs(leaf, graph, leaves);
+            pairs += bfs(leaf);
         }
         
         return pairs / 2;
     }
     
-    public void getGraph(TreeNode node, TreeNode parent, Map<TreeNode, List<TreeNode>> graph, Set<TreeNode> leaves){
+    public void getGraph(TreeNode node, TreeNode parent){
         if(node == null) return;
         
         // left, righ 둘 다 말단 노드인 경우는 leaves에 추가
@@ -48,11 +50,11 @@ class Solution {
         }
         
         // 왼쪽, 오른쪽 트리 탐색하기 위해서 재귀 탐색
-        getGraph(node.left, node, graph, leaves);
-        getGraph(node.right, node, graph, leaves);   
+        getGraph(node.left, node);
+        getGraph(node.right, node);   
     }
     
-    public int bfs(TreeNode leaf, Map<TreeNode, List<TreeNode>> graph, Set<TreeNode> leaves){
+    public int bfs(TreeNode leaf){
         // queue에는 {node, dist} 로 저장
         Queue<Pair> queue = new LinkedList<>();
         Set<TreeNode> visited = new HashSet();
@@ -92,5 +94,5 @@ class Solution {
         this.node = node;
         this.dist = dist;
     }
-}
+ }
 }
