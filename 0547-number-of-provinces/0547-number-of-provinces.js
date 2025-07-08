@@ -2,30 +2,41 @@
  * @param {number[][]} isConnected
  * @return {number}
  */
+
+ 
 var findCircleNum = function(isConnected) {
-    const n = isConnected[0].length;
-    const visited = Array(n).fill(false)
-    let answer = 0;
-    
-    for(let start = 0; start < n; start++) {
-        if(!visited[start]) {
-            dfs(start)
-            answer++
+    const n = isConnected.length;
+    const parent = Array.from({ length: n }, (_, i) => i);
+
+
+    function find(x) {
+        if(x !== parent[x]) {
+            parent[x] = find(parent[x])
         }
+        return parent[x];
     }
 
-    function dfs(start) {
-        if(start === n) {
-            return
-        } else {
-            for(let i = 0; i < n; i++) {
-                if(isConnected[start][i] === 1 && !visited[i]) {
-                    visited[i] = true
-                    dfs(i)
-                }
+    function union(x, y) {
+        let rootX = find(x)
+        let rootY = find(y)
+
+        if(rootX !== rootY) {
+            parent[rootX] = rootY;
+        }
+    }
+    
+     for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            if (isConnected[i][j] === 1) {
+                union(i, j);
             }
         }
     }
 
-    return answer
+    const provinces = new Set();
+    for (let i = 0; i < n; i++) {
+        provinces.add(find(i));
+    }
+
+    return provinces.size;
 };
