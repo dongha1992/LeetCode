@@ -13,7 +13,7 @@ var arrayNesting = function(nums) {
             set = new Set()
             return
         };
-        visited[nums[x]] = true
+        visited[x] = true
         set.add(nums[x])
         find(nums[x])
     }
